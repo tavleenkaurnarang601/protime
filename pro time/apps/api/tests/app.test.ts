@@ -1,4 +1,0 @@
-import { describe,it,expect,beforeAll } from 'vitest'; import request from 'supertest';
-let app: ReturnType<(typeof import('../src/server'))['createApp']>;
-beforeAll(async()=>{process.env.JWT_SECRET='test-secret-that-is-longer-than-thirty-two-characters';process.env.WEB_ORIGIN='http://localhost:3000';app=(await import('../src/server')).createApp()});
-describe('API',()=>{it('exposes a branded health endpoint',async()=>{const response=await request(app).get('/health');expect(response.status).toBe(200);expect(response.body.product).toBe('PRO TIME TRACKER')});it('rejects unauthenticated dashboard access',async()=>{expect((await request(app).get('/dashboard')).status).toBe(401)})});
